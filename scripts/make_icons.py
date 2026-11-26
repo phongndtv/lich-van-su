@@ -2,7 +2,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 RED, CREAM, GOLD = (179, 38, 30), (255, 253, 248), (169, 120, 28)
-FONT = "C:/Windows/Fonts/georgiab.ttf"
+FONT = "C:/Windows/Fonts/timesbd.ttf"  # có đủ dấu tiếng Việt
 
 
 def icon(size, card_ratio):
@@ -21,8 +21,9 @@ def icon(size, card_ratio):
     for cx in (x0 + w * 0.3, x0 + w * 0.7):  # hai lỗ xé lịch
         rr = w * 0.045
         d.ellipse([cx - rr, y0 + head / 2 - rr, cx + rr, y0 + head / 2 + rr], fill=CREAM)
-    font = ImageFont.truetype(FONT, int(w * 0.56))
-    d.text((s / 2, y0 + head + (w - head) / 2), "15", font=font, fill=RED, anchor="mm")
+    # Dùng chữ thay vì con số: biểu tượng là ảnh cố định, số dễ bị hiểu nhầm là ngày hôm nay.
+    font = ImageFont.truetype(FONT, int(w * 0.34))
+    d.text((s / 2, y0 + head + (w - head) / 2), "Lịch", font=font, fill=RED, anchor="mm")
     return img.resize((size, size), Image.LANCZOS)
 
 
