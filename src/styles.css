@@ -1,0 +1,777 @@
+:root {
+  --bg: #f6f1e7;
+  --surface: #fffdf8;
+  --line: #e4dccb;
+  --text: #2b2520;
+  --muted: #7d7265;
+  --red: #b3261e;
+  --red-soft: #fbe9e6;
+  --gold: #a9781c;
+  --blue: #2f5d8a;
+  --radius: 14px;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171412;
+    --surface: #221e1b;
+    --line: #3a332d;
+    --text: #efe8dc;
+    --muted: #a3978a;
+    --red: #ff7a6b;
+    --red-soft: #3a211e;
+    --gold: #e0b45a;
+    --blue: #8db8e6;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.45 system-ui, 'Segoe UI', Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+.app {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 12px max(12px, env(safe-area-inset-right)) 24px max(12px, env(safe-area-inset-left));
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 12px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font: 700 1.35rem Georgia, 'Times New Roman', serif;
+  color: var(--red);
+  letter-spacing: 0.02em;
+}
+
+.btn {
+  border: 1px solid var(--red);
+  background: transparent;
+  color: var(--red);
+  border-radius: 999px;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background: var(--red-soft);
+}
+
+.nav {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.nav:hover {
+  background: rgba(127, 127, 127, 0.15);
+}
+
+.layout {
+  display: grid;
+  gap: 14px;
+}
+
+.side {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+@media (min-width: 880px) {
+  .layout {
+    grid-template-columns: 380px 1fr;
+    align-items: start;
+  }
+}
+
+/* Tờ lịch ngày */
+
+.daycard,
+.month,
+.jump {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.daycard-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--red);
+  color: #fff;
+  padding: 4px 6px;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .daycard-head {
+    background: #8f231c;
+  }
+}
+
+.daycard-head .nav {
+  color: #fff;
+}
+
+.daycard-solar {
+  text-align: center;
+  padding: 10px 16px 16px;
+  border-bottom: 1px dashed var(--line);
+  color: var(--blue);
+}
+
+.daycard-solar.red {
+  color: var(--red);
+}
+
+.big-day {
+  font: 700 clamp(5.5rem, 26vw, 8.5rem) / 1 Georgia, 'Times New Roman', serif;
+}
+
+.weekday {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.holiday {
+  margin-top: 6px;
+  color: var(--red);
+  font-weight: 600;
+}
+
+.daycard-lunar {
+  padding: 14px 16px 16px;
+}
+
+.lunar-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.lunar-day {
+  font: 700 3.2rem/1 Georgia, 'Times New Roman', serif;
+  color: var(--gold);
+  min-width: 1.3em;
+  text-align: center;
+}
+
+.facts {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+
+.facts > div {
+  display: flex;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid var(--line);
+}
+
+.facts dt {
+  width: 76px;
+  flex: none;
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.facts small {
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
+.daycard h2,
+.jump h2 {
+  margin: 14px 0 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.hours {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.hours li {
+  background: var(--red-soft);
+  border-radius: 8px;
+  padding: 6px 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.hours span {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Lịch tháng */
+
+.month {
+  padding: 8px;
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.month-pick {
+  display: flex;
+  gap: 6px;
+}
+
+.month-pick select,
+.month-pick input,
+.jump input[type='date'],
+.jump input[type='number'] {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-weight: 600;
+}
+
+.month-pick input {
+  width: 5.2em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.grid-head {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 4px 0;
+}
+
+.grid-head.weekend {
+  color: var(--red);
+}
+
+.cell {
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 10px;
+  padding: 6px 2px;
+  min-height: 56px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.cell:hover {
+  background: rgba(127, 127, 127, 0.12);
+}
+
+.cell .s {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.cell .l {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.cell.saturday .s {
+  color: var(--blue);
+}
+
+.cell.sunday .s,
+.cell.has-holiday .s {
+  color: var(--red);
+}
+
+.cell.moon .l {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.cell.outside {
+  opacity: 0.38;
+}
+
+.cell.today {
+  border-color: var(--red);
+}
+
+.cell.selected {
+  background: var(--red-soft);
+  border-color: var(--red);
+  opacity: 1;
+}
+
+/* Đổi ngày */
+
+.jump {
+  padding: 4px 14px 14px;
+}
+
+.jump .row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 0 0 10px;
+}
+
+.jump .row > span {
+  width: 84px;
+  color: var(--muted);
+}
+
+.lunar-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.lunar-inputs input[type='number'] {
+  width: 3.6em;
+}
+
+.lunar-inputs input.year {
+  width: 5.2em;
+}
+
+.leap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.error {
+  margin: 0;
+  color: var(--red);
+}
+
+.footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Vạn sự */
+
+:root {
+  --good: #1f7a3d;
+  --good-soft: #e6f3ea;
+  --bad: #6b6259;
+  --bad-soft: #ece7df;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --good: #6fcf8e;
+    --good-soft: #1c3325;
+    --bad: #b0a598;
+    --bad-soft: #2e2925;
+  }
+}
+
+.verdict {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.verdict.good {
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.verdict.bad {
+  background: var(--bad-soft);
+  color: var(--bad);
+}
+
+.facts dd.plain {
+  font-weight: 400;
+}
+
+.good-text {
+  color: var(--good);
+}
+
+.bad-text {
+  color: var(--red);
+}
+
+.taboo small {
+  display: block;
+  margin-left: 0;
+}
+
+.cell {
+  position: relative;
+}
+
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.dot.good {
+  background: var(--good);
+}
+
+.dot.bad {
+  background: transparent;
+  border: 1px solid var(--muted);
+}
+
+.cell .dot {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  padding: 8px 0 2px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Tìm ngày tốt */
+
+.find {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 4px 14px 14px;
+}
+
+.find h2 {
+  margin: 14px 0 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.find-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.find-form label {
+  display: grid;
+  gap: 3px;
+}
+
+.find-form span {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.find-form select,
+.find-form input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px 8px;
+}
+
+.find-note,
+.find-empty {
+  margin: 10px 0 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.find-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.find-list button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--line);
+  padding: 9px 4px;
+  cursor: pointer;
+}
+
+.find-list button:hover {
+  background: rgba(127, 127, 127, 0.1);
+}
+
+.find-date {
+  width: 54px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.find-date b {
+  font-size: 1.1rem;
+}
+
+.find-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.find-list small {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.find-stars {
+  flex: none;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+/* Sự kiện cá nhân */
+
+.events {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 4px 14px 14px;
+}
+
+.events h2 {
+  margin: 14px 0 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.soon-list {
+  max-height: 260px;
+}
+
+.when {
+  flex: none;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.when.near {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.moon-title {
+  color: var(--muted);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.event-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
+}
+
+.event-form .wide {
+  grid-column: 1 / -1;
+}
+
+.event-form label {
+  display: grid;
+  gap: 3px;
+}
+
+.event-form label span {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.event-form input,
+.event-form select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px 8px;
+}
+
+.event-form .btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.all-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.all-events li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding: 8px 4px;
+}
+
+.all-events small {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.link {
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+  flex: none;
+}
+
+.link.danger {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.day-events {
+  list-style: none;
+  margin: 0;
+  padding: 10px 16px;
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  border-bottom: 1px dashed var(--line);
+}
+
+.day-events li {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 0;
+}
+
+.day-events small {
+  color: var(--muted);
+}
+
+.cell.has-event::after {
+  content: '';
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  bottom: 3px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gold);
+}
+
+.event-mark {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gold);
+}
+
+.legend {
+  flex-wrap: wrap;
+}
